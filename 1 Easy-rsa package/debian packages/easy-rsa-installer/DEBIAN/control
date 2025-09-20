@@ -1,0 +1,9 @@
+Package: easy-rsa-installer
+Version: 1.0
+Section: admin
+Priority: optional
+Architecture: all
+Maintainer: Said Arabov <arabovseyitnazar@gmail.com>
+Depends: openvpn
+Description: Preconfigured easy-rsa package for openvpn connections.
+ This package installs preconfigured easy-rsa files, including the vars file, and pre-generated certificates and keys for openvpn.

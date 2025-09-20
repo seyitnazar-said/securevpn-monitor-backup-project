@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+case "$1" in
+  remove|purge)
+    echo "[postrm] Removing easy-rsa files..."
+    rm -rf /etc/openvpn/easy-rsa
+    ;;
+esac
+
+exit 0 

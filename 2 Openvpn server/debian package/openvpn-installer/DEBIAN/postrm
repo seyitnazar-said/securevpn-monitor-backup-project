@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -e
+
+case "$1" in
+  remove|purge)
+  echo "Stopping OpenVPN server..."
+  systemctl stop openvpn@server.service || true
+  systemctl disable openvpn@server.service || true
+
+  echo "Removing OpenVPN server configuration..."
+  rm -f /etc/openvpn/server.conf
+  rm -f /usr/bin/openvpn.sh
+
+  if [ "$1" = "purge" ]; then
+      echo "Purging all OpenVPN-related data..."
+      rm -rf /etc/openvpn
+      rm -rf /etc/openvpn/easy-rsa
+      rm -rf /var/log/openvpn
+      rm -rf /home/ubuntu/client_files
+  fi
+
+esac
+
+exit 0

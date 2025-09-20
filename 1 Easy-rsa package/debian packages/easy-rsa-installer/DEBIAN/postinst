@@ -1,0 +1,23 @@
+#!/bin/bash
+set -e
+
+SRC="/usr/share/easy-rsa"
+DEST="/etc/openvpn"
+SCRIPT="/usr/bin/easy_rsa.sh"
+CA_CRT="$DEST/easy-rsa/pki/ca.crt"
+
+    if [ ! -d "$DEST/easy-rsa" ]; then
+        install -d "$DEST"
+        cp -a "$SRC" "$DEST"
+    fi
+
+    chmod 755 /usr/bin/easy_rsa.sh
+
+    if [ ! -f "$CA_CRT" ]; then
+        echo "easy-rsa-installer: running initial CA setup..."
+        "$SCRIPT"
+    else
+        echo "easy-rsa installer: CA already present, skipping initial setup."
+    fi
+
+exit 0

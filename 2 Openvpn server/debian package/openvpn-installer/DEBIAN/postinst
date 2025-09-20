@@ -1,0 +1,28 @@
+#!/bin/bash
+set -e
+
+SRC="/usr/share/server.conf"
+DEST="/etc/openvpn"
+SCRIPT="/usr/bin/openvpn.sh"
+SERVER_NAME="openvpn"
+CLIENT_NAME="Said"
+DH="$DEST/easy-rsa/pki/dh.pem"
+
+    if [ ! -f "$DEST/server.conf" ]; then
+        if [ ! -d "$DEST" ]; then
+	  install -d "$DEST"
+	fi
+	  cp "$SRC" "$DEST/"
+    fi
+
+    chmod 755 $SCRIPT
+
+    if [ ! -f "$DH" ]; then
+	echo "openvpn server installer: running openvpn setup..."
+	"$SCRIPT" "$SERVER_NAME" "$CLIENT_NAME"
+    else
+	echo "openvpn server installer: dh.pem file already present, skipping setup."
+    fi
+
+exit 0
+

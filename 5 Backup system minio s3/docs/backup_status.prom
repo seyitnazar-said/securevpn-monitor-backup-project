@@ -1,0 +1,2 @@
+backup_success {job="minio_backup"} 1
+backup_timestamp_seconds 1751940048
