@@ -1,3 +1,6 @@
 3/[[:space:]]Monitoring/debian/[[:space:]]packages/alertmanager-installer filter=lfs diff=lfs merge=lfs -text
 3/[[:space:]]Monitoring/debian/[[:space:]]packages/node-exporter-installer filter=lfs diff=lfs merge=lfs -text
 3/[[:space:]]Monitoring/debian/[[:space:]]packages/openvpn-exporter-installer filter=lfs diff=lfs merge=lfs -text
+3/[[:space:]]Monitoring/debian/[[:space:]]packages/prometheus-installer filter=lfs diff=lfs merge=lfs -text
+3[[:space:]]Monitoring/debian[[:space:]]packages/prometheus-installer/usr/share/prometheus filter=lfs diff=lfs merge=lfs -text
+3[[:space:]]Monitoring/debian[[:space:]]packages/prometheus-installer/usr/share/promtool filter=lfs diff=lfs merge=lfs -text
