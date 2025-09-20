@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+
+case "$1" in
+  remove|purge)
+    echo "[postrm] Removing prometheus files..."
+    rm -rf /etc/prometheus
+    rm -f /usr/local/bin/promtool
+    rm -f /usr/local/bin/prometheus
+    rm -f /etc/systemd/system/prometheus.service
+    ;;
+esac
+
+exit 0 

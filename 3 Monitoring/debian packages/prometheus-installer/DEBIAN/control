@@ -1,0 +1,9 @@
+Package: prometheus-installer
+Version: 1.0
+Section: admin
+Priority: optional
+Architecture: all
+Maintainer: Said Arabov <arabovseyitnazar@gmail.com>
+Depends: openvpn
+Description: Preconfigured prometheus package for openvpn server and the OS.
+ This package installs preconfigured prometheus files, including the yml file, and pre-generated jobs for openvpn and the OS.

@@ -1,0 +1,33 @@
+#!/bin/bash
+set -e
+
+SRC_YAML="/usr/share/prometheus.yml"
+SRC_PROMTOOL="/usr/share/promtool"
+SRC_PROMETHEUS="/usr/share/prometheus"
+
+DEST="/etc/prometheus"
+DEST_YAML="/etc/prometheus/prometheus.yml"
+DEST_PROMTOOL="/usr/local/bin/promtool"
+DEST_PROMETHEUS="/usr/local/bin/prometheus"
+
+SCRIPT="/usr/bin/prometheus.sh"
+SERVICE="/etc/systemd/system/prometheus.service"
+
+    if [ ! -f "$DEST_YAML" ]; then
+        install -d "$DEST"
+        cp -a "$SRC_YAML" "$DEST"
+    fi
+
+    cp "$SRC_PROMTOOL" "$DEST_PROMTOOL"
+    cp "$SRC_PROMETHEUS" "$DEST_PROMETHEUS"
+
+    chmod 755 /usr/bin/prometheus.sh
+
+    if [ ! -f "$SERVICE" ]; then
+        echo "prometheus-installer: running initial setup..."
+        "$SCRIPT"
+    else
+        echo "prometheus installer: service already present, skipping initial setup."
+    fi
+
+exit 0
