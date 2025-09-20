@@ -1,0 +1,23 @@
+#!/bin/bash
+set -e
+
+SRC_NODE_EXPORTER="/usr/share/node_exporter"
+DEST_NODE_EXPORTER="/usr/local/bin/node_exporter"
+
+SCRIPT="/usr/bin/node-exporter.sh"
+SERVICE="/etc/systemd/system/node_exporter.service"
+
+    if [ ! -f "$DEST_NODE_EXPORTER" ]; then
+        cp -a "$SRC_NODE_EXPORTER" "$DEST_NODE_EXPORTER"
+    fi
+
+    chmod 755 "$SCRIPT"
+
+    if [ ! -f "$SERVICE" ]; then
+        echo "node-exporter installer: running initial setup..."
+        "$SCRIPT"
+    else
+        echo "node-exporter installer: service already present, skipping initial setup."
+    fi
+
+exit 0

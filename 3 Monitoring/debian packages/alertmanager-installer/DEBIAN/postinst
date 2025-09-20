@@ -1,0 +1,39 @@
+#!/bin/bash
+set -e
+
+SRC_YAML="/usr/share/alertmanager.yml"
+SRC_AMTOOL="/usr/share/amtool"
+SRC_ALERTMANAGER="/usr/share/alertmanager"
+SRC_RULES="/usr/share/alertrules.yml"
+SRC_PROMETHEUS="/usr/share/prometheus.yml"
+
+DEST="/etc/alertmanager"
+DEST_YAML="/etc/alertmanager/alertmanager.yml"
+DEST_AMTOOL="/usr/local/bin/amtool"
+DEST_ALERTMANAGER="/usr/local/bin/alertmanager"
+DEST_RULES="/etc/prometheus/alertrules.yml"
+DEST_PROMETHEUS="/etc/prometheus/prometheus.yml"
+
+SCRIPT="/usr/bin/alertmanager.sh"
+SERVICE="/etc/systemd/system/alertmanager.service"
+
+    if [ ! -f "$DEST_YAML" ]; then
+        install -d "$DEST"
+        cp -a "$SRC_YAML" "$DEST"
+    fi
+
+    cp "$SRC_AMTOOL" "$DEST_AMTOOL"
+    cp "$SRC_ALERTMANAGER" "$DEST_ALERTMANAGER"
+    cp "$SRC_RULES" "$DEST_RULES"
+    cp "$SRC_PROMETHEUS" "$DEST_PROMETHEUS"
+
+    chmod 755 /usr/bin/alertmanager.sh
+
+    if [ ! -f "$SERVICE" ]; then
+        echo "alertmanager-installer: running initial setup..."
+        "$SCRIPT"
+    else
+        echo "alertmanager installer: service already present, skipping initial setup."
+    fi
+
+exit 0

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e
+
+case "$1" in
+  remove|purge)
+    echo "[postrm] Removing openvpn exporter files..."
+    rm -f /usr/bin/openvpn_exporter
+    rm -f /etc/systemd/system/openvpn_exporter.service
+    ;;
+esac
+
+exit 0 

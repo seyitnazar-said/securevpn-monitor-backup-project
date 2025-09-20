@@ -1,0 +1,9 @@
+Package: node-exporter-installer
+Version: 1.0
+Section: admin
+Priority: optional
+Architecture: all
+Maintainer: Said Arabov <arabovseyitnazar@gmail.com>
+Depends: openvpn
+Description: Preconfigured node-exporter package for openvpn server and the OS.
+ This package installs preconfigured node-exporter files, including the service, and pre-generated jobs for ubuntu vms.

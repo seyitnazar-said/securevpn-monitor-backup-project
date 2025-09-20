@@ -1,0 +1,57 @@
+groups:
+  - name: Windows vm
+    rules:
+    - alert: Windows vm is Down
+      expr: up{instance="192.168.1.119:9182"} == 0
+      for: 20s
+      labels:
+        severity: critical
+        service: windows-vm
+      annotations:
+        summary: "Windows machine at 192.168.1.119 is down"
+        description: "Instance 192.168.1.119 has been down for more than 20s."
+
+    - alert: Low disk space
+      expr: (node_filesystem_avail_bytes{fstype!~"^(fuse.*|tmpfs|cifs|nfs)"} / node_filesystem_size_bytes < .10 and on (instance, device, mountpoint) node_filesystem_readonly == 0)
+      for: 20s
+      labels:
+        severity: critical
+      annotations:
+        summary: "VM out of disk space (instance {{ $labels.instance }})"
+        description: "Disk is almost full (< 10% left)\n VALUE= {{ $value }}\n LABELS = {{ $labels }}"
+
+    - alert: VMOutOfMemory
+      expr: (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes < .10)
+      for: 20s
+      labels:
+        severity: critical
+      annotations:
+        summary: "VM out of memory (instance {{ $labels.instance }})"
+        description: "Node memory is filling up (< 10% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+    - alert: VMHighCpuLoad
+      expr: 1 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[1m]))) > .85
+      for: 20s
+      labels:
+        severity: warning
+      annotations:
+        summary: "VM high CPU load (instance {{ $labels.instance }})"
+        description: "CPU load is > 85%\n  VALUE= {{ $value }}\n  LABELS = {{ $labels }}"
+
+    - alert: OpenVPNExporterDown
+      expr: up{job="openvpn server"} == 0
+      for: 45s
+      labels:
+        severity: critical
+      annotations:
+        summary:  "openvpn_exporter on {{ $labels.instance }} is down"
+        description: "Prometheus cannot scrape {{ $labels.instance }}:{{ $labels.job }}. Check the systemd unit or Docker container."
+
+    - alert: NoConnectedClients
+      expr: absent(openvpn_bytes_received)
+      for: 1m
+      labels:
+        severity: warning
+      annotations:
+        summary: "No VPN clients connected on {{ $labels.instance }}"
+        description: "The exporter sees zero connected clients for the past 1 minute."

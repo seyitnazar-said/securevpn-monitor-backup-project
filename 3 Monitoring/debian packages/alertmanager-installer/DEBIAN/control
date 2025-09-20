@@ -1,0 +1,9 @@
+Package: alertmanager-installer
+Version: 1.0
+Section: admin
+Priority: optional
+Architecture: all
+Maintainer: Said Arabov <arabovseyitnazar@gmail.com>
+Depends: openvpn
+Description: Preconfigured alertmanager package for prometheus service and openvpn connections.
+ This package installs preconfigured alertmanager files, including the rules file, and pre-generated email configuration to notify account owner.

@@ -1,0 +1,9 @@
+Package: openvpn-exporter-installer
+Version: 1.0
+Section: admin
+Priority: optional
+Architecture: all
+Maintainer: Said Arabov <arabovseyitnazar@gmail.com>
+Depends: openvpn
+Description: Preconfigured openvpn exporter package for openvpn server.
+ This package installs preconfigured openvpn exporter files, including the service file, and pre-generated jobs for openvpn server.

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e
+
+case "$1" in
+  remove|purge)
+    echo "[postrm] Removing node_exporter files..."
+    rm -f /usr/local/bin/node_exporter
+    rm -f /etc/systemd/system/node_exporter.service
+    ;;
+esac
+
+exit 0 

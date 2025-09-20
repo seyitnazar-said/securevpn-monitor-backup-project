@@ -1,0 +1,23 @@
+#!/bin/bash
+set -e
+
+SRC_OPENVPN="/usr/share/openvpn_exporter"
+DEST_OPENVPN="/usr/bin/openvpn_exporter"
+
+SCRIPT="/usr/bin/openvpn-exporter.sh"
+SERVICE="/etc/systemd/system/openvpn_exporter.service"
+
+    if [ ! -f "$DEST_OPENVPN" ]; then
+        cp "$SRC_OPENVPN" "$DEST_OPENVPN"
+    fi
+
+    chmod 755 "$SCRIPT"
+
+    if [ ! -f "$SERVICE" ]; then
+        echo "openvpn-exporter installer: running initial setup..."
+        "$SCRIPT"
+    else
+        echo "openvpn-exporter installer: service already present, skipping initial setup."
+    fi
+
+exit 0

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -e
+
+case "$1" in
+  remove|purge)
+    echo "[postrm] Removing prometheus files..."
+    rm -rf /etc/alertmanager
+    rm -f /etc/prometheus/alertrules.yml
+    rm -f /usr/local/bin/amtool
+    rm -f /usr/local/bin/alertmanager
+    rm -f /etc/systemd/system/alertmanager.service
+    ;;
+esac
+
+exit 0
